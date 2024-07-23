@@ -1,3 +1,5 @@
+#Sophie Bluel
+
 ##Instructions to Run the Code
 
 Start the backend from your terminal by following the instructions in the README file.
