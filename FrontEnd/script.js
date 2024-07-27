@@ -1,21 +1,34 @@
 /* fetch jobs */
-const galleryContainer = document.querySelector('.gallery');
+const galleryContainer = document.querySelector(".gallery");
 
-fetch('http://localhost:5678/api/works')
-.then(response => {
-return response.json();
-})
+function createJobFigure(job) {
+  const figure = document.createElement("figure");
+  const figureImg = document.createElement("img");
+  const figureCaption = document.createElement("figcaption");
 
-gallery.innerHTML = `<figure></figure>`
+  figure.setAttribute("id", job.id);
+  figure.setAttribute("category-id", job.categoryId);
+  figureImg.setAttribute("src", job.imageUrl);
+  figureCaption.textContent = job.title;
 
-/* <figure>
-				<img src="assets/images/abajour-tahina.png" alt="Tahina Lampshade">
-				<figcaption>Tahina Lampshade</figcaption>
-			</figure> */
+  figure.appendChild(figureImg);
+  figure.appendChild(figureCaption);
 
+  return figure;
+}
+
+fetch("http://localhost:5678/api/works")
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((job) => {
+      const figure = createJobFigure(job);
+      galleryContainer.appendChild(figure);
+    });
+  });
 
 /* fetch categories */
-fetch('http://localhost:5678/api/categories')
-.then(response => {
-return response.json();
-})
+
+/*const filterButtons = document.querySelector(."filter-buttons");
+
+/*fetch("http://localhost:5678/api/categories")
+	.then((response) => response.json());*/
