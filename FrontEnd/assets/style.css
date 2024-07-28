@@ -212,12 +212,10 @@ nav li {
 /* filter buttons */
 .filter-buttons {
   text-align: center;
+  margin-bottom: 2em;
 }
 
-.all-button,
-.objects-button,
-.apartments-button,
-.hotels-restaurants-button {
+.button {
   height: 45px;
   width: fit-content;
   border-radius: 25px;
@@ -229,12 +227,14 @@ nav li {
   font-weight: 700;
   font-size: 16px;
   background-color: white;
+  text-transform: capitalize;
 }
 
-.all-button:hover,
-.objects-button:hover,
-.apartments-button:hover,
-.hotels-restaurants-button:hover {
+#all-button {
+  padding: 0 45px;
+}
+
+.button:hover, .button:active {
   color: white;
   background-color: #1d6154;
 }
