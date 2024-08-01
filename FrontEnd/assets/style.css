@@ -90,6 +90,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  background-color: #fffef8;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -215,7 +216,8 @@ nav li {
   margin-bottom: 2em;
 }
 
-.button {
+.button,
+.filter-button {
   height: 45px;
   width: fit-content;
   border-radius: 25px;
@@ -234,7 +236,8 @@ nav li {
   padding: 0 45px;
 }
 
-.button:hover, .button:active {
+.button:hover,
+.button:active {
   color: white;
   background-color: #1d6154;
 }
