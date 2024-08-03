@@ -304,3 +304,9 @@ footer nav ul {
   justify-content: flex-end;
   margin: 2em;
 }
+
+/* login page css */
+.forgotPassword {
+  text-align: center;
+  color: black;
+}
