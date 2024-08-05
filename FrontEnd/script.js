@@ -26,8 +26,8 @@ function createJobFigure(job) {
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((jobs) => {
-    // TODO cache the jobs
-    jobs.forEach((job) => {
+    jobCache = jobs;
+    jobCache.forEach((job) => {
       const figure = createJobFigure(job);
       galleryContainer.appendChild(figure);
     });
@@ -47,8 +47,8 @@ function createFilterButton(category) {
 
   button.setAttribute("class", "button");
   button.setAttribute("id", "filter-button");
-  button.setAttribute("data-filter-type", category.id);
-  button.setAttribute("data-category", category.name);
+  button.setAttribute("value", category.id);
+  button.setAttribute("category", category.name);
   button.textContent = category.name;
 
   return button;
@@ -70,28 +70,48 @@ function createAllButton() {
   return allButton;
 }
 
+const allButton = createAllButton();
+filterButtons.appendChild(allButton);
+allButton.addEventListener("click", () => {
+  galleryContainer.innerHTML = "";
+  jobCache.forEach((job) => {
+    const figure = createJobFigure(job);
+    galleryContainer.appendChild(figure);
+  });
+  console.log("all button clicked");
+});
+
 /** fetch categories and event listeners for filters */
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categories) => {
-    const allButton = createAllButton();
-    filterButtons.appendChild(allButton);
-    allButton.addEventListener("click", () => {
-      galleryContainer.innerHTML = "";
-// TODO: add jobs from cache
-      console.log("all button clicked");
-    });
     categories.forEach((category) => {
-      const button = createFilterButton(category);
-      filterButtons.appendChild(button);
-      // FIXME get jobs (using cache)
-      // FIXME filter jobCache by category clicked (get category.id from event target)
-      // FIXME re-insert job cards after removing old ones
-      const filterButton = document.getElementById("filter-button");
-      filterButton.addEventListener("click", () => {
+      const filterButton = createFilterButton(category);
+      filterButtons.appendChild(filterButton);
+      filterButton.addEventListener("click", ($event) => {
         galleryContainer.innerHTML = "";
+        
+        console.log($event.target.value);
 
-        console.log("filter button clicked");
+        function categoryValue(job) {
+          if ($event.target.value == jobCache.categoryId) {
+            return job;
+          }
+        }
+        const filteredJobs = jobCache.filter(categoryValue);
+        filteredJobs.forEach((job) => {
+          const figure = createJobFigure(job);
+          galleryContainer.appendChild(figure);
+          console.log("filter button clicked");
+        });
       });
     });
   });
+
+// FIXME get jobs (using cache)
+// FIXME filter jobCache by category clicked (get category.id from event target)
+// FIXME re-insert job cards after removing old ones
+
+/* login */
+
+/*window.location.assign("index.html");*/
