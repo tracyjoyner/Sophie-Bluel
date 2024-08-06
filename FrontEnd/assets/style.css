@@ -172,15 +172,24 @@ nav ul {
   list-style-type: none;
 }
 nav li {
-  padding: 0 10px;
+  padding: 0 20px;
   font-size: 1.2em;
 }
 .nav {
   text-decoration: none;
   color: black;
+  text-transform: capitalize;
 }
 .nav:hover {
   color: #b1663c;
+}
+.nav:focus {
+  color: black;
+  font-weight: 700;
+}
+#instagramIcon {
+  height: 25px;
+  width: 25px;
 }
 
 #introduction {
