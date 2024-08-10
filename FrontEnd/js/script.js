@@ -103,6 +103,6 @@ function filterJob($event) {
     const figure = createJobFigure(job);
     galleryContainer.appendChild(figure);
   });
-}
+};
 
 

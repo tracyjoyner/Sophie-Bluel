@@ -280,7 +280,7 @@ nav li {
 }
 
 #contact,
-#login > * {
+#login, .forgotPassword > * {
   text-align: center;
 }
 #contact h2,
