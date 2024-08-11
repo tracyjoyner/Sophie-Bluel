@@ -11,19 +11,44 @@
       rel="stylesheet"
     />
     <meta name="description" content="" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
     <header>
-      <h1>Sophie Bluel <span>Interior Designer</span></h1>
-      <nav>
-        <ul>
-          <li><a href="#portfolio" class="nav">projects</a></li>
-          <li><a href="#contact" class="nav">contact</a></li>
-          <li><a href="login.html" class="nav">login</a></li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" id="instagramIcon" /></li>
-        </ul>
-      </nav>
+      <div class="admin hidden" id="top-bar">
+        <p class="admin" id="top-bar-text">
+          <i class="fa-regular fa-pen-to-square"></i>Editing Mode
+        </p>
+      </div>
+      <div class="nav-user-only">
+        <h1>Sophie Bluel <span>Interior Designer</span></h1>
+        <nav>
+          <ul>
+            <li><a href="#portfolio" class="nav">projects</a></li>
+            <li><a href="#contact" class="nav">contact</a></li>
+            <li><a href="login.html" class="nav">login</a></li>
+            <li>
+              <a href="index.html" class="nav admin hidden" id="logout"
+                >logout</a
+              >
+            </li>
+            <li>
+              <img
+                src="./assets/icons/instagram.png"
+                alt="Instagram"
+                id="instagramIcon"
+              />
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
       <section id="introduction">
@@ -50,7 +75,12 @@
         </article>
       </section>
       <section id="portfolio">
-        <h2>My Projects</h2>
+        <div class="admin">
+          <h2>My Projects</h2>
+          <button class="admin modal-open hidden">
+            <i class="fa-regular fa-pen-to-square"></i>Edit
+          </button>
+        </div>
         <div class="filter-buttons"></div>
         <div class="gallery">
           <!-- <figure>
@@ -121,6 +151,21 @@
         </ul>
       </nav>
     </footer>
+    <!-- Modal -->
+    <section class="modal hidden">
+      <div class="close-modal">
+        <button class="close-x"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div>
+        <h3 class="modal-title">Photo Gallery</h3>
+        <div class="photo-gallery"></div>
+      </div>
+      <hr />
+      <input id="modal-add-photo" type="submit" value="Add a photo" />
+    </section>
+
+    <div class="overlay hidden"></div>
+
     <script src="./js/script.js" defer></script>
   </body>
 </html>

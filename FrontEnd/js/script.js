@@ -103,6 +103,35 @@ function filterJob($event) {
     const figure = createJobFigure(job);
     galleryContainer.appendChild(figure);
   });
+}
+/* admin */
+
+/*admin.classList.remove("hidden")*/
+
+/* logout */
+const logout = document.getElementById("logout");
+
+logout.addEventListener("click", () => {
+  admin.classList.add("hidden");
+});
+
+/* modal */
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const openEdit = document.querySelector(".modal-open");
+const closeX = document.querySelector(".close-x");
+
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
 };
 
+openEdit.addEventListener("click", openModal);
 
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+closeX.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);

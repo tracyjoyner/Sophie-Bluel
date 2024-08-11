@@ -10,7 +10,7 @@ signIn.addEventListener("click", ($event) => {
     password: document.getElementById("password").value,
   };
 
-  // TODO using swagger, test logging in a user both with good and bad credentials
+  // using swagger, test logging in a user both with good and bad credentials
   // use fetch API to send post request to log user in
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
@@ -20,7 +20,7 @@ signIn.addEventListener("click", ($event) => {
     body: JSON.stringify(userLogin),
   })
     .then((response) => {
-      // TODO handle response for invalid credentials by showing error message on login page
+      // handle response for invalid credentials by showing error message on login page
       if (!response.ok) {
         alert("Incorrect Email or Password");
       }
