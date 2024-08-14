@@ -2,6 +2,31 @@
 const galleryContainer = document.querySelector(".gallery");
 let jobCache;
 
+function isLoggedIn() {
+  // TODO return true if local storage has a token, otherwise false
+  if (localStorage.getItem("token")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+if (isLoggedIn()) {
+  // show black edit bar, small edit button, and logout - Hide login and filter buttons
+  document.getElementById("top-bar").classList.remove("hidden");
+  document.getElementById("logout").classList.remove("hidden");
+  document.querySelector(".modal-open").classList.remove("hidden");
+  document.getElementById("login").classList.add("hidden");
+  document.querySelector(".filter-buttons").classList.add("hidden");
+} else {
+  // hide black edit bar, small edit button, and logout - Show login and filter buttons
+  document.getElementById("top-bar").classList.add("hidden");
+  document.getElementById("logout").classList.add("hidden");
+  document.querySelector(".modal-open").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+  document.querySelector(".filter-buttons").classList.remove("hidden");
+}
+
 /**
  * inserts job cards in page
  *
@@ -104,15 +129,12 @@ function filterJob($event) {
     galleryContainer.appendChild(figure);
   });
 }
-/* admin */
-
-/*admin.classList.remove("hidden")*/
 
 /* logout */
 const logout = document.getElementById("logout");
 
 logout.addEventListener("click", () => {
-  admin.classList.add("hidden");
+  localStorage.removeItem("token");
 });
 
 /* modal */
@@ -120,10 +142,37 @@ const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const openEdit = document.querySelector(".modal-open");
 const closeX = document.querySelector(".close-x");
+const modalGalleryContainer = document.querySelector(".photo-gallery");
+
+/**
+ * inserts job cards in page
+ *
+ * @param {object} job - gallery projects - modal
+ * @returns a job card
+ */
+function createModalJobFigure(job) {
+  const figure = document.createElement("figure");
+  const figureImg = document.createElement("img");
+  figureImg.setAttribute("src", job.imageUrl);
+  figureImg.setAttribute("alt", job.title);
+
+  figure.appendChild(figureImg);
+
+  return figure;
+}
 
 const openModal = function () {
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
+  fetch("http://localhost:5678/api/works")
+    .then((response) => response.json())
+    .then((jobs) => {
+      jobCache = jobs;
+      jobCache.forEach((job) => {
+        const figure = createModalJobFigure(job);
+        modalGalleryContainer.appendChild(figure);
+      });
+    });
 };
 
 openEdit.addEventListener("click", openModal);
@@ -131,6 +180,7 @@ openEdit.addEventListener("click", openModal);
 const closeModal = function () {
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
+  localStorage.removeItem("token");
 };
 
 closeX.addEventListener("click", closeModal);

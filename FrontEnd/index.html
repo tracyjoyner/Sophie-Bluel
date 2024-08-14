@@ -22,8 +22,8 @@
   </head>
   <body>
     <header>
-      <div class="admin hidden" id="top-bar">
-        <p class="admin" id="top-bar-text">
+      <div class="top-bar hidden" id="top-bar">
+        <p class="top-bar-text">
           <i class="fa-regular fa-pen-to-square"></i>Editing Mode
         </p>
       </div>
@@ -33,11 +33,9 @@
           <ul>
             <li><a href="#portfolio" class="nav">projects</a></li>
             <li><a href="#contact" class="nav">contact</a></li>
-            <li><a href="login.html" class="nav">login</a></li>
+            <li><a href="login.html" class="nav" id="login">login</a></li>
             <li>
-              <a href="index.html" class="nav admin hidden" id="logout"
-                >logout</a
-              >
+              <a href="index.html" class="nav hidden" id="logout">logout</a>
             </li>
             <li>
               <img
@@ -75,9 +73,9 @@
         </article>
       </section>
       <section id="portfolio">
-        <div class="admin">
+        <div class="project-heading">
           <h2>My Projects</h2>
-          <button class="admin modal-open hidden">
+          <button class="modal-open hidden">
             <i class="fa-regular fa-pen-to-square"></i>Edit
           </button>
         </div>
