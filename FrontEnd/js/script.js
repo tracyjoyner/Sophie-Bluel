@@ -3,7 +3,7 @@ const galleryContainer = document.querySelector(".gallery");
 let jobCache;
 
 function isLoggedIn() {
-  // TODO return true if local storage has a token, otherwise false
+  // return true if local storage has a token, otherwise false
   if (localStorage.getItem("token")) {
     return true;
   } else {
@@ -153,10 +153,13 @@ const modalGalleryContainer = document.querySelector(".photo-gallery");
 function createModalJobFigure(job) {
   const figure = document.createElement("figure");
   const figureImg = document.createElement("img");
+  const trashIcon = document.createElement("i");
   figureImg.setAttribute("src", job.imageUrl);
   figureImg.setAttribute("alt", job.title);
+  // trashIcon.classList.add("fa-solid fa-trash-can trash");
 
   figure.appendChild(figureImg);
+  figure.appendChild(trashIcon);
 
   return figure;
 }
@@ -177,10 +180,23 @@ const openModal = function () {
 
 openEdit.addEventListener("click", openModal);
 
+// TODO add event listener for "add a photo button" that opens 2nd modal
+const openAddPhoto = document.querySelector(".modal-add-photo-button");
+const modalAddPhoto = document.querySelector(".modal-add-photo");
+const openAddPhotoModal = function () {
+  modal.classList.add("hidden");
+  modalAddPhoto.classList.remove("hidden");
+};
+
+openAddPhoto.addEventListener("click", openAddPhotoModal);
+
+// TODO capture Add photo form input
+
 const closeModal = function () {
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
-  localStorage.removeItem("token");
+  modalGalleryContainer.innerHTML = "";
+  modalAddPhoto.classList.add("hidden");
 };
 
 closeX.addEventListener("click", closeModal);

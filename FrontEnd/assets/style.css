@@ -218,8 +218,8 @@ nav li {
 }
 
 #instagramIcon {
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   margin-top: 6px;
 }
 
@@ -323,7 +323,8 @@ h2 {
   margin-bottom: 20px;
 }
 #contact form,
-#login form {
+#login form,
+.modal-add-photo form {
   text-align: left;
   margin-top: 30px;
   display: flex;
@@ -332,14 +333,16 @@ h2 {
 
 #contact input,
 #login input,
-#modal-add-photo input {
+.modal-add-photo input,
+#modal-confirm input {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label,
-#login label {
+#login label,
+.add-photo-form label {
   margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -347,7 +350,8 @@ h2 {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+input[type="submit"],
+.modal-add-photo-button {
   font-family: "Syne";
   font-weight: 700;
   color: white;
@@ -392,7 +396,8 @@ footer nav ul {
   margin-right: 10px;
 }
 
-.modal {
+.modal,
+.modal-add-photo {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -414,7 +419,8 @@ footer nav ul {
   text-align: center;
 }
 
-.close-x {
+.close-x,
+.back-arrow {
   font-family: Work Sans;
   font-size: 26px;
   font-weight: 700;
@@ -428,6 +434,12 @@ footer nav ul {
 .close-modal {
   display: flex;
   justify-content: flex-end;
+  border-radius: 10px;
+}
+
+.close-modal-nav {
+  display: flex;
+  justify-content: space-between;
   border-radius: 10px;
 }
 
@@ -445,12 +457,74 @@ footer nav ul {
   width: 100%;
 }
 
+.photo-gallery .trash {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.add-photo-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 100px;
+  padding: 40px 0;
+  background-color: #ffffff;
+}
+
+.photo-icon,
+.add-photo-button,
+.new-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-icon {
+  height: 76px;
+  width: 76px;
+  color: #b9c5cc;
+  background-color: #e8f1f6;
+}
+
+.add-photo-button {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #cbd6dc;
+  margin: auto;
+  width: 180px;
+  text-align: center;
+  border-radius: 50px;
+  border: none;
+  color: #306685;
+  padding: 10px;
+}
+
+.new-photo {
+  flex-direction: column;
+  margin-top: 40px;
+  background-color: #e8f1f6;
+  border-radius: 3px;
+}
+
+.new-photo > p {
+  font-family: Work Sans;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  background-color: #e8f1f6;
+  padding: 10px 0 20px;
+}
+
 hr {
   margin: 0 100px;
   border-top: 1px solid #b3b3b3;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
+}
+
+.modal-add-photo-button {
+  padding: 10px;
 }
 
 #modal-add-photo {
