@@ -334,6 +334,7 @@ h2 {
 #contact input,
 #login input,
 .modal-add-photo input,
+.modal-add-photo select,
 #modal-confirm input {
   height: 50px;
   font-size: 1.2em;
@@ -357,7 +358,7 @@ input[type="submit"],
   color: white;
   background-color: #1d6154;
   margin: 2em auto;
-  width: 180px;
+  width: 156px;
   text-align: center;
   border-radius: 60px;
 }
@@ -411,6 +412,10 @@ footer nav ul {
   z-index: 2;
 }
 
+.modal-add-photo-button {
+  width: 193px;
+}
+
 .modal-title {
   font-family: Work Sans;
   font-size: 26px;
@@ -420,7 +425,8 @@ footer nav ul {
 }
 
 .close-x,
-.back-arrow {
+.back-arrow,
+.close-x2 {
   font-family: Work Sans;
   font-size: 26px;
   font-weight: 700;
@@ -450,23 +456,26 @@ footer nav ul {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 10px;
   grid-row-gap: 30px;
-  padding: 50px 90px;
+  padding: 40px 90px 10px;
 }
 
 .photo-gallery img {
   width: 100%;
 }
 
-.photo-gallery .trash {
+.photo-gallery i {
+  font-size: 10px;
+  height: 17px;
+  width: 17px;
   color: #ffffff;
   background-color: #000000;
+  z-index: 3;
 }
 
 .add-photo-form {
   display: flex;
   flex-direction: column;
   margin: 0 100px;
-  padding: 40px 0;
   background-color: #ffffff;
 }
 
@@ -479,10 +488,12 @@ footer nav ul {
 }
 
 .photo-icon {
+  font-size: 60px;
   height: 76px;
   width: 76px;
   color: #b9c5cc;
   background-color: #e8f1f6;
+  padding-top: 10px;
 }
 
 .add-photo-button {
@@ -491,7 +502,7 @@ footer nav ul {
   font-weight: 500;
   background-color: #cbd6dc;
   margin: auto;
-  width: 180px;
+  width: 173px;
   text-align: center;
   border-radius: 50px;
   border: none;
@@ -516,14 +527,15 @@ footer nav ul {
 }
 
 hr {
-  margin: 0 100px;
+  margin: 40px 100px 0;
   border-top: 1px solid #b3b3b3;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
 }
 
-.modal-add-photo-button {
+.modal-add-photo-button,
+#modal-confirm {
   padding: 10px;
 }
 
@@ -531,6 +543,11 @@ hr {
   display: flex;
   align-items: center;
   height: 35px;
+}
+
+#modal-confirm {
+  width: 237px;
+  background-color: #A7A7A7;
 }
 
 .overlay {

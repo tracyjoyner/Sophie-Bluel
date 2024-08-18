@@ -142,6 +142,7 @@ const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const openEdit = document.querySelector(".modal-open");
 const closeX = document.querySelector(".close-x");
+const closeX2 = document.querySelector(".close-x2");
 const modalGalleryContainer = document.querySelector(".photo-gallery");
 
 /**
@@ -156,10 +157,11 @@ function createModalJobFigure(job) {
   const trashIcon = document.createElement("i");
   figureImg.setAttribute("src", job.imageUrl);
   figureImg.setAttribute("alt", job.title);
-  // trashIcon.classList.add("fa-solid fa-trash-can trash");
+  // TODO add trash icon
+  // i.classList.add("fa-solid fa-trash-can");
 
+  figureImg.appendChild(trashIcon);
   figure.appendChild(figureImg);
-  figure.appendChild(trashIcon);
 
   return figure;
 }
@@ -180,9 +182,11 @@ const openModal = function () {
 
 openEdit.addEventListener("click", openModal);
 
-// TODO add event listener for "add a photo button" that opens 2nd modal
+// add event listener for "add a photo button" that opens 2nd modal
 const openAddPhoto = document.querySelector(".modal-add-photo-button");
 const modalAddPhoto = document.querySelector(".modal-add-photo");
+const backArrow = document.querySelector(".back-arrow");
+
 const openAddPhotoModal = function () {
   modal.classList.add("hidden");
   modalAddPhoto.classList.remove("hidden");
@@ -190,8 +194,37 @@ const openAddPhotoModal = function () {
 
 openAddPhoto.addEventListener("click", openAddPhotoModal);
 
-// TODO capture Add photo form input
+// return to first modal using back arrow or close second modal using x
+const closeAddPhotoModal = function () {
+  modalAddPhoto.classList.add("hidden");
+  modal.classList.remove("hidden");
+};
 
+backArrow.addEventListener("click", closeAddPhotoModal);
+closeX2.addEventListener("click", closeAddPhotoModal);
+
+// TODO capture Add photo form input
+const addPhoto = document.querySelector(".add-photo-button");
+/*addPhoto.addEventListener("click", )*/
+
+const addPhotoText = document.getElementById("#title");
+
+
+const categoryDropdown = document.querySelector(".category-choice");
+/*categoryDropdown.addEventListener("change", ($event) => {
+  = $event.target.value;
+});*/
+
+
+// NOTE change button background-color to #1d6154 after form is filled
+const confirm = document.querySelector(".modal-confirm");
+/*confirm.addEventListener("click", )*/
+
+
+// TODO once trash icon is working, create delete project function
+
+
+// close modal
 const closeModal = function () {
   modal.classList.add("hidden");
   overlay.classList.add("hidden");
