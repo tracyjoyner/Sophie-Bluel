@@ -389,6 +389,7 @@ footer nav ul {
   border: hidden;
   margin-left: 20px;
   margin-top: 6px;
+  cursor: pointer;
 }
 
 .modal-open > .fa-pen-to-square {
@@ -435,6 +436,7 @@ footer nav ul {
   background-color: #ffffff;
   border: hidden;
   text-align: center;
+  cursor: pointer;
 }
 
 .close-modal {
@@ -459,17 +461,32 @@ footer nav ul {
   padding: 40px 90px 10px;
 }
 
+.photo-gallery figure {
+  position: relative;
+}
+
 .photo-gallery img {
   width: 100%;
 }
 
 .photo-gallery i {
+  position: absolute;
+  top: 5px;
+  right: 5px;
   font-size: 10px;
   height: 17px;
   width: 17px;
   color: #ffffff;
   background-color: #000000;
   z-index: 3;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.fa-trash-can {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-photo-form {
@@ -496,12 +513,19 @@ footer nav ul {
   padding-top: 10px;
 }
 
+.new-photo > input[type="file"] {
+  opacity: 0;
+  position: relative;
+  cursor: pointer;
+}
+
 .add-photo-button {
+  position: absolute;
   font-family: Work Sans;
   font-size: 14px;
   font-weight: 500;
   background-color: #cbd6dc;
-  margin: auto;
+  margin: 50px 0 0;
   width: 173px;
   text-align: center;
   border-radius: 50px;
@@ -523,7 +547,7 @@ footer nav ul {
   font-weight: 400;
   text-align: center;
   background-color: #e8f1f6;
-  padding: 10px 0 20px;
+  padding: 0 0 20px;
 }
 
 hr {
@@ -547,7 +571,8 @@ hr {
 
 #modal-confirm {
   width: 237px;
-  background-color: #A7A7A7;
+  background-color: #a7a7a7;
+  cursor: pointer;
 }
 
 .overlay {

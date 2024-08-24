@@ -52,14 +52,19 @@ fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((jobs) => {
     jobCache = jobs;
-    jobCache.forEach((job) => {
-      const figure = createJobFigure(job);
-      galleryContainer.appendChild(figure);
-    });
+    insertJobCards();
   });
 
 /* fetch categories - create filter buttons */
 const filterButtons = document.querySelector(".filter-buttons");
+
+function insertJobCards() {
+  galleryContainer.innerHTML = "";
+  jobCache.forEach((job) => {
+    const figure = createJobFigure(job);
+    galleryContainer.appendChild(figure);
+  });
+}
 
 /**
  * inserts category buttons in page
@@ -157,11 +162,12 @@ function createModalJobFigure(job) {
   const trashIcon = document.createElement("i");
   figureImg.setAttribute("src", job.imageUrl);
   figureImg.setAttribute("alt", job.title);
-  // TODO add trash icon
-  // i.classList.add("fa-solid fa-trash-can");
+  trashIcon.classList.add("fa-solid", "fa-trash-can", "trash");
+  trashIcon.setAttribute("id", "trash");
 
-  figureImg.appendChild(trashIcon);
   figure.appendChild(figureImg);
+  figure.appendChild(trashIcon);
+  figure.dataset.id = job.id;
 
   return figure;
 }
@@ -207,22 +213,49 @@ closeX2.addEventListener("click", closeAddPhotoModal);
 const addPhoto = document.querySelector(".add-photo-button");
 /*addPhoto.addEventListener("click", )*/
 
-const addPhotoText = document.getElementById("#title");
-
+const addPhotoText = document.getElementById("title");
 
 const categoryDropdown = document.querySelector(".category-choice");
 /*categoryDropdown.addEventListener("change", ($event) => {
   = $event.target.value;
 });*/
 
+// TODO change confirm button background-color to #1d6154 after form is filled
+const imageCheck = document.getElementById("add-photo");
+const titleCheck = document.getElementById("title");
+const categoryCheck = document.getElementById("category");
+const confirmYes = document.getElementById("modal-confirm");
 
-// NOTE change button background-color to #1d6154 after form is filled
+function checkForm() {
+  if (
+    imageCheck.value !== "" &&
+    titleCheck.value !== "" &&
+    categoryCheck.value !== ""
+  ) {
+    confirmYes.style.backgroundColor = "#1d6154";
+  } else {
+    submitButton.style.backgroundColor = "#a7a7a7";
+  }
+}
+
+imageCheck.addEventListener("input", checkForm);
+titleCheck.addEventListener("input", checkForm);
+categoryCheck.addEventListener("input", checkForm);
+
 const confirm = document.querySelector(".modal-confirm");
 /*confirm.addEventListener("click", )*/
 
+// TODO add a function that appends a new category to .category-choice
 
-// TODO once trash icon is working, create delete project function
 
+
+// TODO delete project
+const deleteJob = document.querySelector(".trash");
+// deleteJob.addEventListener("click", ($event) => {
+//   $event.target.getElementById("trash").parentElement.dataset.id;
+//   // jobCache.remove(removeJob);
+  console.log(deleteJob);
+// });
 
 // close modal
 const closeModal = function () {
@@ -230,6 +263,7 @@ const closeModal = function () {
   overlay.classList.add("hidden");
   modalGalleryContainer.innerHTML = "";
   modalAddPhoto.classList.add("hidden");
+  insertJobCards();
 };
 
 closeX.addEventListener("click", closeModal);
