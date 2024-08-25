@@ -333,7 +333,7 @@ h2 {
 
 #contact input,
 #login input,
-.modal-add-photo input,
+#title,
 .modal-add-photo select,
 #modal-confirm input {
   height: 50px;
@@ -361,6 +361,7 @@ input[type="submit"],
   width: 156px;
   text-align: center;
   border-radius: 60px;
+  cursor: pointer;
 }
 
 /* footer */
@@ -497,8 +498,7 @@ footer nav ul {
 }
 
 .photo-icon,
-.add-photo-button,
-.new-photo {
+label.add-photo-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -515,11 +515,18 @@ footer nav ul {
 
 .new-photo > input[type="file"] {
   opacity: 0;
-  position: relative;
+  width: 100%;
   cursor: pointer;
 }
 
-.add-photo-button {
+#new-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 99;
+}
+
+label.add-photo-button {
   position: absolute;
   font-family: Work Sans;
   font-size: 14px;
@@ -535,7 +542,12 @@ footer nav ul {
 }
 
 .new-photo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
+  height: 165px;
   margin-top: 40px;
   background-color: #e8f1f6;
   border-radius: 3px;
@@ -547,7 +559,7 @@ footer nav ul {
   font-weight: 400;
   text-align: center;
   background-color: #e8f1f6;
-  padding: 0 0 20px;
+  padding: 20px 0;
 }
 
 hr {

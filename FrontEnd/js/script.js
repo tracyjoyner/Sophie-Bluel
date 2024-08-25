@@ -40,6 +40,7 @@ function createJobFigure(job) {
   figureImg.setAttribute("src", job.imageUrl);
   figureImg.setAttribute("alt", job.title);
   figureCaption.textContent = job.title;
+  figure.dataset.id = job.id;
 
   figure.appendChild(figureImg);
   figure.appendChild(figureCaption);
@@ -55,9 +56,6 @@ fetch("http://localhost:5678/api/works")
     insertJobCards();
   });
 
-/* fetch categories - create filter buttons */
-const filterButtons = document.querySelector(".filter-buttons");
-
 function insertJobCards() {
   galleryContainer.innerHTML = "";
   jobCache.forEach((job) => {
@@ -66,8 +64,11 @@ function insertJobCards() {
   });
 }
 
+/* fetch categories - create filter buttons */
+const filterButtons = document.querySelector(".filter-buttons");
+
 /**
- * inserts category buttons in page
+ * creates category buttons
  *
  * @param {object} category - gallery job categories
  * @returns a category button
@@ -157,19 +158,20 @@ const modalGalleryContainer = document.querySelector(".photo-gallery");
  * @returns a job card
  */
 function createModalJobFigure(job) {
-  const figure = document.createElement("figure");
-  const figureImg = document.createElement("img");
+  const modalFigure = document.createElement("figure");
+  const modalFigureImg = document.createElement("img");
   const trashIcon = document.createElement("i");
-  figureImg.setAttribute("src", job.imageUrl);
-  figureImg.setAttribute("alt", job.title);
+  modalFigureImg.setAttribute("src", job.imageUrl);
+  modalFigureImg.setAttribute("alt", job.title);
   trashIcon.classList.add("fa-solid", "fa-trash-can", "trash");
   trashIcon.setAttribute("id", "trash");
 
-  figure.appendChild(figureImg);
-  figure.appendChild(trashIcon);
-  figure.dataset.id = job.id;
+  modalFigure.appendChild(modalFigureImg);
+  modalFigure.appendChild(trashIcon);
+  modalFigure.dataset.id = job.id;
+  trashIcon.dataset.id = job.id;
 
-  return figure;
+  return modalFigure;
 }
 
 const openModal = function () {
@@ -180,13 +182,37 @@ const openModal = function () {
     .then((jobs) => {
       jobCache = jobs;
       jobCache.forEach((job) => {
-        const figure = createModalJobFigure(job);
-        modalGalleryContainer.appendChild(figure);
+        const modalFigure = createModalJobFigure(job);
+        modalGalleryContainer.appendChild(modalFigure);
       });
     });
 };
 
 openEdit.addEventListener("click", openModal);
+
+// TODO delete project
+// const deleteJob = document.getElementById("#trash");
+// deleteJob.addEventListener("click", ($event) => {
+//     $event.preventDefault();
+//     deleteJobById(job.id);
+//   });
+
+// function deleteJobById() {
+// const confirm = confirm("Are you sure you want to delete this job?");
+//   if(confirm) {
+//     // fetch("http://localhost:5678/api/${job.id}", {
+//     //   method: "DELETE",
+//     //   headers: {
+//     //     "Content-Type": "application/json",
+//     //   Authorization: "Bearer " + localStorage.getItem("token"),
+//     //   }
+//     // })
+//     // .then((response) => response.json())
+//     // .then()
+//   document.getElementById("figure.dataset.${job.id}").remove();
+//   console.log("figure.dataset.${job.id}");
+//   };
+// };
 
 // add event listener for "add a photo button" that opens 2nd modal
 const openAddPhoto = document.querySelector(".modal-add-photo-button");
@@ -209,16 +235,17 @@ const closeAddPhotoModal = function () {
 backArrow.addEventListener("click", closeAddPhotoModal);
 closeX2.addEventListener("click", closeAddPhotoModal);
 
-// TODO capture Add photo form input
-const addPhoto = document.querySelector(".add-photo-button");
-/*addPhoto.addEventListener("click", )*/
-
-const addPhotoText = document.getElementById("title");
-
-const categoryDropdown = document.querySelector(".category-choice");
-/*categoryDropdown.addEventListener("change", ($event) => {
-  = $event.target.value;
-});*/
+// function that appends categories to .category-choice
+fetch("http://localhost:5678/api/categories")
+  .then((response) => response.json())
+  .then((categories) => {
+    categories.forEach((category) => {
+      let categoryOption = document.createElement("option");
+      categoryOption.setAttribute("value", category.id);
+      categoryOption.textContent = category.name;
+      document.querySelector(".category-choice").appendChild(categoryOption);
+    });
+  });
 
 // TODO change confirm button background-color to #1d6154 after form is filled
 const imageCheck = document.getElementById("add-photo");
@@ -228,13 +255,13 @@ const confirmYes = document.getElementById("modal-confirm");
 
 function checkForm() {
   if (
-    imageCheck.value !== "" &&
-    titleCheck.value !== "" &&
-    categoryCheck.value !== ""
+    imageCheck.value === "" &&
+    titleCheck.value === "" &&
+    categoryCheck.value === ""
   ) {
-    confirmYes.style.backgroundColor = "#1d6154";
+    confirmYes.style.backgroundColor = "#a7a7a7";
   } else {
-    submitButton.style.backgroundColor = "#a7a7a7";
+    confirmYes.style.backgroundColor = "#1d615";
   }
 }
 
@@ -242,20 +269,60 @@ imageCheck.addEventListener("input", checkForm);
 titleCheck.addEventListener("input", checkForm);
 categoryCheck.addEventListener("input", checkForm);
 
-const confirm = document.querySelector(".modal-confirm");
-/*confirm.addEventListener("click", )*/
+// TODO add image preview
+const addPhoto = document.getElementById("add-photo");
+const photoPreview = document.getElementById("new-photo");
 
-// TODO add a function that appends a new category to .category-choice
+function photoData() {
+  const photoFile = addPhoto.files[0];
+  if (photoFile) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(photoFile);
+    fileReader.addEventListener("load", function () {
+      photoPreview.style.display = "block";
+      photoPreview.innerHTML = '<img src="' + this.result + '" />';
+    });
+  }
+}
 
+addPhoto.addEventListener("change", () => {
+  photoData();
+});
 
+// TODO capture Add photo form input
+const addJob = document.getElementById("add-photo-form");
+const newPhoto = document.getElementById("add-photo").value;
+const newTitle = document.getElementById("title").value;
+const newCategory = document.getElementById("category").value;
 
-// TODO delete project
-const deleteJob = document.querySelector(".trash");
-// deleteJob.addEventListener("click", ($event) => {
-//   $event.target.getElementById("trash").parentElement.dataset.id;
-//   // jobCache.remove(removeJob);
-  console.log(deleteJob);
-// });
+addJob.addEventListener("submit", ($event) => {
+  $event.preventDefault();
+  const newJob = new newJob();
+  newJob.append("title", newPhoto);
+  newJob.append("title", newTitle);
+  newJob.append("category", newCategory);
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: newJob,
+  })
+    .then((response) => response.json())
+    .then((job) => {
+      const figure = createJobFigure(job);
+      galleryContainer.appendChild(figure);
+
+      const modalFigure = createModalJobFigure(job);
+      modalGalleryContainer.appendChild(modalFigure);
+
+      alert("Success - new job added!");
+    });
+});
+
+const confirmAddJobButton = document.getElementById("modal-confirm");
+confirmAddJobButton.addEventListener("click", addJob);
 
 // close modal
 const closeModal = function () {
