@@ -164,7 +164,13 @@ function createModalJobFigure(job) {
   modalFigureImg.setAttribute("src", job.imageUrl);
   modalFigureImg.setAttribute("alt", job.title);
   trashIcon.classList.add("fa-solid", "fa-trash-can", "trash");
-  trashIcon.setAttribute("id", "trash");
+
+  trashIcon.addEventListener("click", ($event) => {
+    console.log("deleting...");
+    $event.preventDefault();
+    // const jobId = $event.target.dataset.id;
+    deleteJobById($event.target);
+  });
 
   modalFigure.appendChild(modalFigureImg);
   modalFigure.appendChild(trashIcon);
@@ -190,29 +196,23 @@ const openModal = function () {
 
 openEdit.addEventListener("click", openModal);
 
-// TODO delete project
-// const deleteJob = document.getElementById("#trash");
-// deleteJob.addEventListener("click", ($event) => {
-//     $event.preventDefault();
-//     deleteJobById(job.id);
-//   });
+// delete job
+function deleteJobById(trashIconElement) {
+  const jobId = trashIconElement.dataset.id;
+  const figureElement = trashIconElement.closest("figure");
+  // const confirm = confirm("Are you sure you want to delete this job?");
+  // if (confirm) {
+  fetch(`http://localhost:5678/api/works/${jobId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((response) => response.json());
 
-// function deleteJobById() {
-// const confirm = confirm("Are you sure you want to delete this job?");
-//   if(confirm) {
-//     // fetch("http://localhost:5678/api/${job.id}", {
-//     //   method: "DELETE",
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //   Authorization: "Bearer " + localStorage.getItem("token"),
-//     //   }
-//     // })
-//     // .then((response) => response.json())
-//     // .then()
-//   document.getElementById("figure.dataset.${job.id}").remove();
-//   console.log("figure.dataset.${job.id}");
-//   };
-// };
+  figureElement.remove();
+  // }
+}
 
 // add event listener for "add a photo button" that opens 2nd modal
 const openAddPhoto = document.querySelector(".modal-add-photo-button");

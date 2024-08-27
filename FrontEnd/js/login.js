@@ -23,12 +23,15 @@ signIn.addEventListener("click", ($event) => {
       // handle response for invalid credentials by showing error message on login page
       if (!response.ok) {
         alert("Incorrect Email or Password");
-      } else {
-        // handle response for valid credentials by redirecting to homepage
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("userId", login.userId);
-        window.location.assign("index.html");
       }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      // handle response for valid credentials by redirecting to homepage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      window.location.assign("index.html");
     })
     .catch((err) => console.log(err));
 });

@@ -497,6 +497,10 @@ footer nav ul {
   background-color: #ffffff;
 }
 
+#add-photo-form {
+  background-color: #ffffff;
+}
+
 .photo-icon,
 label.add-photo-button {
   display: flex;
@@ -581,9 +585,14 @@ hr {
   height: 35px;
 }
 
+.category-choice {
+  text-transform: capitalize;
+}
+
 #modal-confirm {
   width: 237px;
   background-color: #a7a7a7;
+  border: none;
   cursor: pointer;
 }
 
