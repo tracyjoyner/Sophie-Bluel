@@ -166,7 +166,6 @@ function createModalJobFigure(job) {
   trashIcon.classList.add("fa-solid", "fa-trash-can", "trash");
 
   trashIcon.addEventListener("click", ($event) => {
-    console.log("deleting...");
     $event.preventDefault();
     // const jobId = $event.target.dataset.id;
     deleteJobById($event.target);
@@ -257,7 +256,7 @@ function checkForm() {
   if (
     imageCheck.value === "" &&
     titleCheck.value === "" &&
-    categoryCheck.value === ""
+    categoryCheck.value === "0"
   ) {
     confirmYes.style.backgroundColor = "#a7a7a7";
   } else {
@@ -268,29 +267,28 @@ function checkForm() {
 imageCheck.addEventListener("input", checkForm);
 titleCheck.addEventListener("input", checkForm);
 categoryCheck.addEventListener("input", checkForm);
+console.log(imageCheck.value);
+console.log(titleCheck.value);
+console.log(categoryCheck.value);
+console.log(confirmYes.style.backgroundColor);
 
 // TODO add image preview
 const addPhoto = document.getElementById("add-photo");
-const photoPreview = document.getElementById("new-photo");
-
-function photoData() {
-  const photoFile = addPhoto.files[0];
-  if (photoFile) {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(photoFile);
-    fileReader.addEventListener("load", function () {
-      photoPreview.style.display = "block";
-      photoPreview.innerHTML = '<img src="' + this.result + '" />';
-    });
-  }
-}
 
 addPhoto.addEventListener("change", () => {
-  photoData();
+  const chosenPhoto = addPhoto.files[0];
+  const photoPreview = document.createElement("img");
+  photoPreview.src = URL.createObjectURL(chosenPhoto);
+  photoPreview.style.maxHeight = "100%";
+  photoPreview.style.width = "auto";
+  document.querySelector(".add-photo-button").style.display = "none";
+  document.querySelector(".photo-icon").style.display = "none";
+  document.querySelector(".new-photo > p").style.display = "none";
+  document.querySelector(".new-photo").appendChild(photoPreview);
 });
 
 // TODO capture Add photo form input
-const addJob = document.getElementById("add-photo-form");
+const addJob = document.getElementById("modal-confirm");
 const newPhoto = document.getElementById("add-photo").value;
 const newTitle = document.getElementById("title").value;
 const newCategory = document.getElementById("category").value;
@@ -298,9 +296,9 @@ const newCategory = document.getElementById("category").value;
 addJob.addEventListener("submit", ($event) => {
   $event.preventDefault();
   const newJob = new newJob();
-  newJob.append("title", newPhoto);
+  newJob.append("imageURL", newPhoto);
   newJob.append("title", newTitle);
-  newJob.append("category", newCategory);
+  newJob.append("categoryId", newCategory);
   fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {

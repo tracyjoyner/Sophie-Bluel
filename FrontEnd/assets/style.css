@@ -514,20 +514,14 @@ label.add-photo-button {
   width: 76px;
   color: #b9c5cc;
   background-color: #e8f1f6;
-  padding-top: 10px;
+  margin-bottom: 40px;
+  margin-top: -10px;
 }
 
-.new-photo > input[type="file"] {
-  opacity: 0;
-  width: 100%;
-  cursor: pointer;
-}
-
-#new-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  z-index: 99;
+[type="file"] {
+  height: 0;  
+  width: 0;
+  overflow: hidden;
 }
 
 label.add-photo-button {
@@ -543,6 +537,7 @@ label.add-photo-button {
   border: none;
   color: #306685;
   padding: 10px;
+  cursor: pointer;
 }
 
 .new-photo {
@@ -563,7 +558,6 @@ label.add-photo-button {
   font-weight: 400;
   text-align: center;
   background-color: #e8f1f6;
-  padding: 20px 0;
 }
 
 hr {
