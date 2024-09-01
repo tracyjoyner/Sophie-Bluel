@@ -246,33 +246,7 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
-// TODO change confirm button background-color to #1d6154 after form is filled
-const imageCheck = document.getElementById("add-photo");
-const titleCheck = document.getElementById("title");
-const categoryCheck = document.getElementById("category");
-const confirmYes = document.getElementById("modal-confirm");
-
-function checkForm() {
-  if (
-    imageCheck.value === "" &&
-    titleCheck.value === "" &&
-    categoryCheck.value === "0"
-  ) {
-    confirmYes.style.backgroundColor = "#a7a7a7";
-  } else {
-    confirmYes.style.backgroundColor = "#1d615";
-  }
-}
-
-imageCheck.addEventListener("input", checkForm);
-titleCheck.addEventListener("input", checkForm);
-categoryCheck.addEventListener("input", checkForm);
-console.log(imageCheck.value);
-console.log(titleCheck.value);
-console.log(categoryCheck.value);
-console.log(confirmYes.style.backgroundColor);
-
-// TODO add image preview
+// add image preview
 const addPhoto = document.getElementById("add-photo");
 
 addPhoto.addEventListener("change", () => {
@@ -287,17 +261,48 @@ addPhoto.addEventListener("change", () => {
   document.querySelector(".new-photo").appendChild(photoPreview);
 });
 
+// check if form is filled
+const imageCheck = document.getElementById("add-photo");
+const titleCheck = document.getElementById("title");
+const categoryCheck = document.getElementById("category");
+const confirmYes = document.getElementById("modal-confirm");
+
+const checkForm = function () {
+  if (
+    imageCheck.value === "" ||
+    titleCheck.value === "" ||
+    categoryCheck.value === "0"
+  ) {
+    confirmYes.style.backgroundColor = "#a7a7a7";
+  } else {
+    confirmYes.style.backgroundColor = "#1d6154";
+  }
+};
+
+imageCheck.addEventListener("input", checkForm);
+titleCheck.addEventListener("input", checkForm);
+categoryCheck.addEventListener("input", checkForm);
+
 // TODO capture Add photo form input
 const addJob = document.getElementById("modal-confirm");
-const newPhoto = document.getElementById("add-photo").value;
 const newTitle = document.getElementById("title").value;
+const newPhoto = document.getElementById("add-photo").files[0];
 const newCategory = document.getElementById("category").value;
 
-addJob.addEventListener("submit", ($event) => {
+addJob.addEventListener("click", ($event) => {
   $event.preventDefault();
-  const newJob = new newJob();
-  newJob.append("imageURL", newPhoto);
+  console.log("you clicked the button");
+  if (
+    imageCheck.value === "" ||
+    titleCheck.value === "" ||
+    categoryCheck.value === "0"
+  ) {
+    alert("Form not complete");
+  }
+
+  const newJob = new FormData();
   newJob.append("title", newTitle);
+  newJob.append("imageURL", newPhoto);
   newJob.append("categoryId", newCategory);
   fetch("http://localhost:5678/api/works", {
     method: "POST",
@@ -318,9 +323,6 @@ addJob.addEventListener("submit", ($event) => {
       alert("Success - new job added!");
     });
 });
-
-const confirmAddJobButton = document.getElementById("modal-confirm");
-confirmAddJobButton.addEventListener("click", addJob);
 
 // close modal
 const closeModal = function () {
