@@ -283,7 +283,7 @@ imageCheck.addEventListener("input", checkForm);
 titleCheck.addEventListener("input", checkForm);
 categoryCheck.addEventListener("input", checkForm);
 
-// TODO capture Add photo form input
+// TODO capture Add photo form input Malt & Juniper - New York
 const addJob = document.getElementById("modal-confirm");
 const newTitle = document.getElementById("title").value;
 const newPhoto = document.getElementById("add-photo").files[0];
@@ -291,7 +291,7 @@ const newCategory = document.getElementById("category").value;
 
 addJob.addEventListener("click", ($event) => {
   $event.preventDefault();
-  console.log("you clicked the button");
+
   if (
     imageCheck.value === "" ||
     titleCheck.value === "" ||
@@ -302,8 +302,9 @@ addJob.addEventListener("click", ($event) => {
 
   const newJob = new FormData();
   newJob.append("title", newTitle);
-  newJob.append("imageURL", newPhoto);
-  newJob.append("categoryId", newCategory);
+  newJob.append("image", newPhoto);
+  newJob.append("category", newCategory);
+
   fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {

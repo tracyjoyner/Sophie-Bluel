@@ -202,7 +202,7 @@ nav ul {
 }
 nav li {
   padding: 0 20px;
-  font-size: 1.2em;
+  font-size: 16px;
 }
 .nav {
   text-decoration: none;
@@ -303,12 +303,12 @@ nav li {
 
 /* contact section */
 #contact {
-  width: 50%;
+  width: 40%;
   margin: auto;
 }
 
 #login {
-  width: 40%;
+  width: 35%;
   margin: 100px auto;
 }
 
@@ -370,7 +370,9 @@ footer nav ul {
   justify-content: flex-end;
   margin: 2em;
 }
-
+footer nav li {
+  font-size: 14px;
+}
 /* login page css */
 .forgotPassword {
   text-align: center;
