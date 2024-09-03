@@ -285,9 +285,6 @@ categoryCheck.addEventListener("input", checkForm);
 
 // TODO capture Add photo form input Malt & Juniper - New York
 const addJob = document.getElementById("modal-confirm");
-const newTitle = document.getElementById("title").value;
-const newPhoto = document.getElementById("add-photo").files[0];
-const newCategory = document.getElementById("category").value;
 
 addJob.addEventListener("click", ($event) => {
   $event.preventDefault();
@@ -299,6 +296,10 @@ addJob.addEventListener("click", ($event) => {
   ) {
     alert("Form not complete");
   }
+
+  const newTitle = document.getElementById("title").value;
+  const newPhoto = document.getElementById("add-photo").files[0];
+  const newCategory = document.getElementById("category").value;
 
   const newJob = new FormData();
   newJob.append("title", newTitle);
@@ -331,7 +332,6 @@ const closeModal = function () {
   overlay.classList.add("hidden");
   modalGalleryContainer.innerHTML = "";
   modalAddPhoto.classList.add("hidden");
-  insertJobCards();
 };
 
 closeX.addEventListener("click", closeModal);
