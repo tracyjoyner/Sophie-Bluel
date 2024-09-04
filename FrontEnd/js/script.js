@@ -64,7 +64,7 @@ function insertJobCards() {
   });
 }
 
-/* fetch categories - create filter buttons */
+/** fetch categories - create filter buttons */
 const filterButtons = document.querySelector(".filter-buttons");
 
 /**
@@ -76,10 +76,9 @@ const filterButtons = document.querySelector(".filter-buttons");
 function createFilterButton(category) {
   const button = document.createElement("button");
 
-  button.setAttribute("class", "button");
-  button.setAttribute("id", "filter-button");
+  button.setAttribute("class", "button", "filter-button");
   button.setAttribute("value", category.id);
-  button.setAttribute("category", category.name);
+  button.setAttribute("data-category", category.name);
   button.textContent = category.name;
 
   return button;
@@ -122,6 +121,10 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
+/**
+ * filters jobs by category
+ * @param {categoryId value} $event
+ */
 function filterJob($event) {
   const categoryId = parseInt($event.target.value);
   galleryContainer.innerHTML = "";
@@ -167,7 +170,6 @@ function createModalJobFigure(job) {
 
   trashIcon.addEventListener("click", ($event) => {
     $event.preventDefault();
-    // const jobId = $event.target.dataset.id;
     deleteJobById($event.target);
   });
 
@@ -195,12 +197,13 @@ const openModal = function () {
 
 openEdit.addEventListener("click", openModal);
 
-// delete job
+/**
+ * deletes job
+ * @param {i} trashIconElement
+ */
 function deleteJobById(trashIconElement) {
   const jobId = trashIconElement.dataset.id;
   const figureElement = trashIconElement.closest("figure");
-  // const confirm = confirm("Are you sure you want to delete this job?");
-  // if (confirm) {
   fetch(`http://localhost:5678/api/works/${jobId}`, {
     method: "DELETE",
     headers: {
@@ -210,10 +213,9 @@ function deleteJobById(trashIconElement) {
   }).then((response) => response.json());
 
   figureElement.remove();
-  // }
 }
 
-// add event listener for "add a photo button" that opens 2nd modal
+/**  add event listener for "add a photo button" that opens 2nd modal */
 const openAddPhoto = document.querySelector(".modal-add-photo-button");
 const modalAddPhoto = document.querySelector(".modal-add-photo");
 const backArrow = document.querySelector(".back-arrow");
@@ -225,7 +227,7 @@ const openAddPhotoModal = function () {
 
 openAddPhoto.addEventListener("click", openAddPhotoModal);
 
-// return to first modal using back arrow or close second modal using x
+/** return to first modal using back arrow or close second modal using x */
 const closeAddPhotoModal = function () {
   modalAddPhoto.classList.add("hidden");
   modal.classList.remove("hidden");
@@ -234,7 +236,7 @@ const closeAddPhotoModal = function () {
 backArrow.addEventListener("click", closeAddPhotoModal);
 closeX2.addEventListener("click", closeAddPhotoModal);
 
-// function that appends categories to .category-choice
+/** appends categories to .category-choice */
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categories) => {
@@ -246,7 +248,7 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
-// add image preview
+/** add image preview */
 const addPhoto = document.getElementById("add-photo");
 
 addPhoto.addEventListener("change", () => {
@@ -261,10 +263,10 @@ addPhoto.addEventListener("change", () => {
   document.querySelector(".new-photo").appendChild(photoPreview);
 });
 
-// check if form is filled
+/** check if form is filled */
 const imageCheck = document.getElementById("add-photo");
 const titleCheck = document.getElementById("title");
-const categoryCheck = document.getElementById("category");
+const categoryCheck = document.getElementById("data-category");
 const confirmYes = document.getElementById("modal-confirm");
 
 const checkForm = function () {
@@ -283,7 +285,7 @@ imageCheck.addEventListener("input", checkForm);
 titleCheck.addEventListener("input", checkForm);
 categoryCheck.addEventListener("input", checkForm);
 
-// TODO capture Add photo form input Malt & Juniper - New York
+/** capture Add photo form input Malt & Juniper - New York */
 const addJob = document.getElementById("modal-confirm");
 
 addJob.addEventListener("click", ($event) => {
@@ -295,38 +297,38 @@ addJob.addEventListener("click", ($event) => {
     categoryCheck.value === "0"
   ) {
     alert("Form not complete");
+  } else {
+    const newTitle = document.getElementById("title").value;
+    const newPhoto = document.getElementById("add-photo").files[0];
+    const newCategory = document.getElementById("data-category").value;
+
+    const newJob = new FormData();
+    newJob.append("title", newTitle);
+    newJob.append("image", newPhoto);
+    newJob.append("category", newCategory);
+
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: newJob,
+    })
+      .then((response) => response.json())
+      .then((job) => {
+        const figure = createJobFigure(job);
+        galleryContainer.appendChild(figure);
+
+        const modalFigure = createModalJobFigure(job);
+        modalGalleryContainer.appendChild(modalFigure);
+
+        alert("Success - new job added!");
+      });
   }
-
-  const newTitle = document.getElementById("title").value;
-  const newPhoto = document.getElementById("add-photo").files[0];
-  const newCategory = document.getElementById("category").value;
-
-  const newJob = new FormData();
-  newJob.append("title", newTitle);
-  newJob.append("image", newPhoto);
-  newJob.append("category", newCategory);
-
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: newJob,
-  })
-    .then((response) => response.json())
-    .then((job) => {
-      const figure = createJobFigure(job);
-      galleryContainer.appendChild(figure);
-
-      const modalFigure = createModalJobFigure(job);
-      modalGalleryContainer.appendChild(modalFigure);
-
-      alert("Success - new job added!");
-    });
 });
 
-// close modal
+/** close modal */
 const closeModal = function () {
   modal.classList.add("hidden");
   overlay.classList.add("hidden");

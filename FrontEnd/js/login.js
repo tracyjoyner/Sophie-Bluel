@@ -23,8 +23,9 @@ signIn.addEventListener("click", ($event) => {
       // handle response for invalid credentials by showing error message on login page
       if (!response.ok) {
         alert("Incorrect Email or Password");
+      } else {
+        return response.json();
       }
-      return response.json();
     })
     .then((data) => {
       console.log(data);

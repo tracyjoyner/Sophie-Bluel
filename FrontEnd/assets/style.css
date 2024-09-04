@@ -130,7 +130,9 @@ table {
   border-spacing: 0;
 }
 /** end reset css**/
-body {
+header,
+main,
+footer {
   max-width: 1140px;
   margin: auto;
   font-family: "Work Sans";
@@ -257,8 +259,7 @@ nav li {
   margin-bottom: 2em;
 }
 
-.button,
-.filter-button {
+.button {
   height: 45px;
   width: fit-content;
   border-radius: 25px;
@@ -409,7 +410,7 @@ footer nav li {
   width: 630px;
   height: 688px;
   position: absolute;
-  left: 22%;
+  left: 28%;
   top: 15%;
   background-color: #ffffff;
   border-radius: 10px;

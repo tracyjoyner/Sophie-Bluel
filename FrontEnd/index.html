@@ -21,12 +21,12 @@
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
+    <div class="top-bar hidden" id="top-bar">
+      <p class="top-bar-text">
+        <i class="fa-regular fa-pen-to-square"></i>Editing Mode
+      </p>
+    </div>
     <header>
-      <div class="top-bar hidden" id="top-bar">
-        <p class="top-bar-text">
-          <i class="fa-regular fa-pen-to-square"></i>Editing Mode
-        </p>
-      </div>
       <div class="nav-user-only">
         <h1>Sophie Bluel <span>Interior Designer</span></h1>
         <nav>
@@ -139,9 +139,9 @@
           </div>
           <label for="title">Title</label>
           <input type="text" name="title" id="title" />
-          <label for="category">Category</label>
-          <select class="category-choice" name="category" id="category">
-            <option value="0"></option>
+          <label for="data-category">Category</label>
+          <select class="category-choice" name="category" id="data-category">
+            <option value="0" label=" "></option>
           </select>
         </form>
       </div>
