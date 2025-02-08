@@ -1,4 +1,4 @@
-# Sophie Bluel
+# Dynamic website using JavaScript - Sophie Bluel
 
 # Scenario:
 You work as a front-end developer for ArchiWebos, which has 50 employees. 
